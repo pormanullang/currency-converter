@@ -1,15 +1,15 @@
 const axios = require('axios');
 
 const getExchangeRate = async (fromCurrency, toCurrency) =>{
-	//try{
-		const res = await axios.get(`http://api.currencylayer.com/live?access_key=1f5ddc9afc9bc208ddb9060fa408eeb9&format=1`);
+	try{
+		const res = await axios.get(`http://api.currencylayer.com/live?access_key=${API_KEY}&format=1`);
 		const usd = 1 / res.data.quotes[`USD${fromCurrency}`];
 		const exchangeRate = usd * res.data.quotes[`USD${toCurrency}`];
 
 		return exchangeRate;
-// 	}catch(error){
-// 		throw new Error(`Unable to get currency ${fromCurrency} and ${toCurrency}`);
-// 	}
+	}catch(error){
+		throw new Error(`Unable to get currency ${fromCurrency} and ${toCurrency}`);
+	}
 };
 
 const getCountries = async (currencyCode) =>{
